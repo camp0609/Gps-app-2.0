@@ -1,16 +1,25 @@
 /* eslint-disable */
-import Vue from 'vue'
-import Router from 'vue-router'
-import header from '@/components/header.vue'
+import Vue from "vue";
+import Router from "vue-router";
+import map from "@/components/map.vue";
+import carousel from "@/components/carousel.vue";
+import signUp from "@/components/signUp.vue";
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      component: header
-    }
-    
-  ]
-})
+	routes: [
+		{
+			path: "/",
+			component: map
+		},
+		{
+			path: "/carousel",
+			component: carousel
+		},
+		{
+			path: "/signUp",
+			component: signUp
+		}
+	]
+});
