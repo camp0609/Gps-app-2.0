@@ -1,16 +1,24 @@
 <template>
   <div class="container">
-    <app-header></app-header>
-    <router-view></router-view>
+    <div class="row ">
+      <app-header></app-header>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <router-view></router-view>
+      </div>
+      <div class="col-6 bg-dark">
+        <h1>otherside</h1>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import header from './components/header.vue';
+import header from "./components/header.vue";
 export default {
   components: {
-    appHeader: header,
-
+    appHeader: header
   }
 };
 </script>
