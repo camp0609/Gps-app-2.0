@@ -1,7 +1,8 @@
-import Api from '/Api'
+/* eslint-disable */
+import Api from "./Api";
 
 export default {
-	register (credentials) {
-		return Api().post('register', credentials)
+	register(credentials) {
+		return Api().post("register", credentials);
 	}
-}
+};
