@@ -1,0 +1,2 @@
+usernames params : /server/src/authentication/*
+signUp rules: need to add pop box nxt to input fields that specify rules for username/password etc

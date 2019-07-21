@@ -1,4 +1,4 @@
-/* eslint-disable */
+<!-- /* eslint-disable */ -->
 <template>
 	<div>
 		<form>
@@ -32,6 +32,9 @@
 					v-model="password"
 				/>
 			</div>
+			<br>
+			<div class ='error' v-html='error'></div>
+			<br>
 			<button type="submit" class="btn btn-primary" @click="register">
 				Submit
 			</button>
@@ -41,24 +44,35 @@
 
 <script>
 /* eslint-disable */
-import AuthenticationService from "@/services/AuthenticationService";
+import AuthenticationService from "../services/AuthenticationService";
 export default {
 	data() {
 		return {
-			username: " ",
-			email: " ",
-			password: " "
+			username: "",
+			email: "",
+			password: "",
+			error: null
 		};
 	},
 	methods: {
 		async register() {
-			const responce = await AuthenticationService.register({
-				username: this.username,
-				email: this.email,
-				password: this.password
-			});
-			console.log(responce.data);
+			try{
+				const responce = await AuthenticationService.register({
+					username: this.username,
+					email: this.email,
+					password: this.password
+				});
+				console.log(responce.data);				
+			}catch(error){
+				this.error = error.response.data.error;
+			}
 		}
 	}
 };
 </script>
+
+<style scoped>
+.error{
+	color: red;
+}
+</style>

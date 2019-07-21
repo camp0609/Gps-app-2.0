@@ -1,0 +1,2 @@
+https://www.youtube.com/watch?v=Fa4cRMaTDUI&t=1s -- Used this video to structure projects folder/file layout. Info for setting up express and node routes
+
