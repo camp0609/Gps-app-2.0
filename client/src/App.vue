@@ -1,21 +1,18 @@
 <template>
   <div class="container">
-    <div class="row ">
+    <div class="row">
       <app-header></app-header>
     </div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-12">
         <router-view></router-view>
-      </div>
-      <div class="col-6 bg-dark">
-        <h1>otherside</h1>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import header from './components/header.vue';
+import header from "./components/header.vue";
 export default {
   components: {
     appHeader: header
@@ -31,5 +28,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.container {
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light w-auto">
 		<a class="navbar-brand" href="#">Navbar</a>
 		<button
 			class="navbar-toggler"
@@ -21,7 +21,7 @@
 					>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Link</a>
+					<a class="nav-link" href="#">Pic</a>
 				</li>
 				<li class="nav-item dropdown">
 					<a
@@ -69,3 +69,5 @@
 <script>
 export default {};
 </script>
+
+<style></style>
