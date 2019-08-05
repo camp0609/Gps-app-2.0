@@ -1,4 +1,3 @@
-<!-- /* eslint-disable */ -->
 <template>
 	<div>
 		<form>
@@ -10,16 +9,6 @@
 					id="username"
 					placeholder="Enter Username"
 					v-model="username"
-				/>
-			</div>
-			<div class="form-group">
-				<label for="email">Email</label>
-				<input
-					type="email"
-					class="form-control"
-					id="email"
-					placeholder="Enter email"
-					v-model="email"
 				/>
 			</div>
 			<div class="form-group">
@@ -35,8 +24,8 @@
 			<br>
 			<div class ='error' v-html='error'></div>
 			<br>
-			<button type="submit" class="btn btn-primary" @click="register">
-				Sign Up
+			<button type="submit" class="btn btn-primary" @click="login">
+				Login
 			</button>
 		</form>
 	</div>
@@ -49,17 +38,15 @@ export default {
 	data() {
 		return {
 			username: "",
-			email: "",
 			password: "",
 			error: null
 		};
 	},
 	methods: {
-		async register() {
+		async login() {
 			try{
-				const responce = await AuthenticationService.register({
+				const responce = await AuthenticationService.login({
 					username: this.username,
-					email: this.email,
 					password: this.password
 				});				
 			}catch(error){

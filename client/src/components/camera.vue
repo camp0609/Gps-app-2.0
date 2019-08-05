@@ -3,20 +3,23 @@
 	<div class="container">
 		<div>
 			<video
+				v-if="live"
 				ref="video"
 				id="video"
 				width="640"
 				height="480"
 				autoplay
 			></video>
+			<canvas
+				v-show="!live"
+				ref="canvas"
+				id="canvas"
+				width="640"
+				height="480"
+			></canvas>
 		</div>
+		<div class ='error' v-html='error'></div>
 		<div><button id="snap" v-on:click="capture()">Snap Photo</button></div>
-		<canvas ref="canvas" id="canvas" width="640" height="480"></canvas>
-		<ul>
-			<li v-for="c in captures">
-				<img v-bind:src="c" height="50" />
-			</li>
-		</ul>
 	</div>
 </template>
 
@@ -26,39 +29,51 @@
 export default {
 	data() {
 		return {
+			live: true,
 			video: {},
 			canvas: {},
-			captures: []
+			lat: "",
+			lng: "",
+			error: null
+			
 		};
 	},
 	mounted() {
 		this.video = this.$refs.video;
-		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) { // this get's permission for webcam and inits it
 			navigator.mediaDevices
 				.getUserMedia({ video: true })
 				.then(stream => {
 					this.video.srcObject = stream;
 				});
+		} else {
+			//need to set up some kind of error if they do not enable the camera
 		}
 	},
 	methods: {
 		capture() {
-			this.canvas = this.$refs.canvas;
-			var context = this.canvas
-				.getContext("2d")
-				.drawImage(this.video, 0, 0, 640, 480);
-			this.captures.push(canvas.toDataURL("image/png"));
+			this.live = false;
+			this.$refs.canvas.getContext("2d").drawImage(this.video, 0, 0, 640, 480); // take picture
+
+			if (navigator.geolocation) {
+    			navigator.geolocation.getCurrentPosition(function (position) { // set lng and lat at time picture is taken
+            		this.lat = position.coords.latitude;
+            		this.lng = position.coords.longitude;
+            		console.log(lat)
+            		console.log(lng)
+        		},
+        		function () {
+            		this.error = "Location permission needs to be enabled";
+            		// snapbtn.disabled = true;
+       	 		})
+			} else {
+    			this.error = "Error with location api";
+    			// snapbtn.disabled = true;
+			}
+
 		}
 	}
 };
 </script>
 
-<style scoped>
-#canvas {
-	display: none;
-}
-li {
-	display: inline;
-	padding: 5px;
-}
-</style>
+<style scoped></style>

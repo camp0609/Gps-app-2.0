@@ -4,7 +4,8 @@ import Router from "vue-router";
 import map from "@/components/map.vue";
 import carousel from "@/components/carousel.vue";
 import signUp from "@/components/signUp.vue";
-import camera from "@/components/camera.vue"
+import camera from "@/components/camera.vue";
+import login from "@/components/login.vue";
 
 Vue.use(Router);
 
@@ -25,6 +26,10 @@ export default new Router({
 		{
 			path: "/camera",
 			component: camera
+		},
+		{
+			path: "/login",
+			component: login
 		}
 	]
 });
