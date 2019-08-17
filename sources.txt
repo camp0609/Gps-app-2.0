@@ -1,2 +1,5 @@
 https://www.youtube.com/watch?v=Fa4cRMaTDUI&t=1s -- Used this video to structure projects folder/file layout. Info for setting up express and node routes
 
+https://medium.com/technoetics/handling-user-login-and-registration-using-nodejs-and-mysql-81b146e37419 -- checking login creds (authenticationController.js line 36)
+
+userPostsController --(save image locally to server as base64) https://stackoverflow.com/questions/13198131/how-to-save-an-html5-canvas-as-an-image-on-a-server

@@ -1,55 +1,77 @@
-/* eslint-disable */
+
 //need to adjust error messages
 const { db } = require("../config/db.js");
+const jwt = require("jsonwebtoken");
+const config = require("../config/config");
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
+function jwtSignUser(user) {
+	const oneWeek = 60 * 60 * 24 * 7
+	return jwt.sign(user, config.authentication.jwtSecret, {
+		expiresIn: oneWeek
+	});
+}
 
 module.exports = {
 	async register(req, res) {
 		try {
-			db.query(
-				"INSERT INTO users(username, email, password) VALUES(?, ?, ?)",
-				[req.body.username, req.body.email, req.body.password], //check if I need req.body.username or can just use req.username
-				(err, results, fields) => {
-					if (!err) {
-						res.send("it worked!");
-						console.log("working");
-					} else {
-						console.log("error");
+			bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+  				db.query(/* eslint-disable */
+					"INSERT INTO users(username, email, password) VALUES(?, ?, ?)",
+					[req.body.username, req.body.email, hash], 
+					(err, results, fields) => {
+						if (!err) {
+							let plainUser = {id: results[0].id, username: results[0].username, email: results[0].email}; // can only use plain object in jwt param
+							// let userJson = JSON.stringify(results);
+							res.send({
+								user: plainUser,
+								token: jwtSignUser(plainUser)
+							});
+						} else {
+							console.log("error");
+						}
 					}
-				}
-			);
+				);
+			});
 		} catch (err) {
 			res.status(500).send({
 				error: "An error has occured while trying to sign up"
 			});
 		}
 	},
+
 	async login(req, res) {
 		try {
 			db.query(
-				"SELECT FROM users * WHERE username = ? AND password = ?",
+				"SELECT * FROM users WHERE username = ?",
 				[req.body.username, req.body.password],
 				(err, results, fields) => {
 					if (err) {
-						res.status(400).send({
-							error: "An error occured trying to login"
+						res.status(err).send({
+							error: "An error occurred trying to login"
 						});
-					} else if (results.length > 0) {
-						if (results[0].password === req.body.password) {
-							// not sure this is right way to check login creds
-							let user = results.toJson();
+					} else if (results != null) {
+						let match = bcrypt.compare(req.body.password, results[0].password);
+						if (match) {
+							let plainUser = {id: results[0].id, username: results[0].username, email: results[0].email}; // can only use plain object in jwt param
+							let userJson = JSON.stringify(results); 
+							console.log(results);
 							res.send({
-								currentUser: user
+								user: userJson,
+								token: jwtSignUser(plainUser)
 							});
 						} else {
 							res.status(403).send({
-								//inccorect password
-								error: "Login information was inccorect"
+								//incorrect password
+								error: "Login information was incorrect"
+								// match
 							});
 						}
 					} else {
 						res.status(403).send({
 							//incorrect username
-							error: "Login information was inccorect"
+							error: "Login information was incorrect, no account found with username"
 						});
 					}
 				}

@@ -1,3 +1,4 @@
+<!--eslint-disable-->
 <template>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light w-auto">
 		<a class="navbar-brand" href="#">Navbar</a>
@@ -48,8 +49,15 @@
 					<a class="nav-link disabled" href="#">Disabled</a>
 				</li>
 			</ul>
-			<button @click="navigateTo({name: 'login'})">
+			<button
+			v-if="!$store.state.userLoggedIn" 
+			@click="navigateTo({name: 'login'})">
 				login
+			</button>
+			<button
+			v-if="$store.state.userLoggedIn" 
+			@click="logout">
+				logout
 			</button>
 		</div>
 	</nav>
@@ -61,6 +69,11 @@ export default {
 	methods: {
 		navigateTo(route){
 			this.$router.push(route);
+		},
+		logout() {
+			this.$store.dispatch('setToken', null);
+			this.$store.dispatch('setUser', null);
+			//need to route to something after they signout
 		}
 	}
 };

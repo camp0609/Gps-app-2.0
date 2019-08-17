@@ -21,7 +21,9 @@ const config = require('./config/config')
 
 const app = express();
 app.use(morgan("combined"));
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cors());
 
 require('./routes.js')(app);
