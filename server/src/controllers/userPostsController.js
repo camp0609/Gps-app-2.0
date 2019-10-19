@@ -33,19 +33,21 @@ module.exports = {
 		}
 	},
 
-	async getPosts() {
+	async getPosts(req, res) {
 		try {
+			console.log(req.params.userId);
 			db.query("SELECT * FROM posts WHERE userId = ?", //will need to figure out how many posts to return intially, prob by most recent
-				[req.body.userId],
+				[req.params.userId],
 				(err, results, fields) => {
 					if(!err) {
+						console.log(results);
 						res.send(results);
 					} else {
 						console.log(err);
 					}
-				})
+				});
 		} catch(err) {
-
+			console.log('something went wrong getting user posts')
 		}
 	}
 

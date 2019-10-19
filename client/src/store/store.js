@@ -9,7 +9,12 @@ export default new Vuex.Store({
 	state: {
 		token: null,
 		user: {},
-		userLoggedIn: false
+		userLoggedIn: false,
+		currentPostId: null,
+		currentPost: null,
+		makeComment: true,
+		currentLat: null,
+		currentLng: null
 	},
 	mutations: {
 		SET_TOKEN(state, token) {
@@ -23,7 +28,25 @@ export default new Vuex.Store({
 
 		SET_USER(state, user) {
 			state.user = user;
-		}
+		},
+
+		SET_POSTID(state, postId) {
+			state.currentPostId = postId;
+		},
+
+		SET_POST(state, post) {
+			state.currentPost = post;
+		},
+
+		SET_COMMENT(state, comment) {
+			state.makeComment = comment;
+		},
+		SET_LAT(state, lat) {
+			state.currentLat = lat;
+		},
+		SET_LNG(state, lng) {
+			state.currentLng = lng;
+		},
 	},
 	actions: {
 		setToken({commit}, token) {

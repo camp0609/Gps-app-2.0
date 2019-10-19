@@ -5,8 +5,14 @@ import App from './App'
 import router from './router'
 import {sync} from 'vuex-router-sync'
 import store from '@/store/store'
+import VueSessionStorage from 'vue-sessionstorage'
+// import vueScrollBehavior from 'vue-scroll-behavior'
+
+Vue.use(VueSessionStorage);
 
 Vue.config.productionTip = false
+
+// Vue.use(vueScrollBehavior, { router: router });
 
 sync(store, router);
 

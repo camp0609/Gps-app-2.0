@@ -14,11 +14,19 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "ajv": "^6.10.2",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "map-promisified": "^0.4.0",
+    "mapbox-gl": "^0.53.1",
     "mapbox-gl-vue": "^1.9.0",
+    "popper": "^1.0.1",
     "vue": "^2.5.2",
+    "vue-mapbox": "^0.4.1",
     "vue-router": "^3.0.1",
+    "vue-scroll-behavior": "^0.2.0",
+    "vue-sessionstorage": "^1.0.0",
     "vuex": "^3.1.1",
     "vuex-router-sync": "^5.0.0"
   },

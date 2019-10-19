@@ -3,7 +3,7 @@
 import Api from "./Api";
 
 export default {
-	savePost(credentials) {
-		return Api().post("savePost", credentials);
+	getTrending() {
+		return Api().get("getTrending");
 	}
 };

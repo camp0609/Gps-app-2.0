@@ -1,3 +1,4 @@
 usernames params : /server/src/authentication/*
 signUp rules: need to add pop box nxt to input fields that specify rules for username/password etc
 camera: if they deny access to cemera will need error to pop up 
+frontPage: lazy loading https://soal.github.io/vue-mapbox/guide/basemap.html#adding-map-component
